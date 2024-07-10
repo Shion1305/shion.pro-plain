@@ -17,7 +17,7 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <div class="page-root">
     <h1>Hello👋</h1>
     <h2>My name is Shion!!</h2>
     <p>
@@ -55,5 +55,9 @@ h1, h2 {
   font-family: "Titillium Web", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+.page-root{
+  max-width: 40rem;
 }
 </style>
