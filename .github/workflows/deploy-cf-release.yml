@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.event_name == 'pull_request' && github.head_ref || github.event.release.tag_name || github.sha }}
+      NODE_ENV: production
+      NITRO_PRESET: cloudflare_module
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,18 +31,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ inputs.node_version }}
           cache: pnpm
       - name: Install deps
         shell: bash
-        run: ${{ inputs.install_command }}
+        run: pnpm i --frozen-lockfile
       - name: Build (Nuxt)
         shell: bash
-        env:
-          NODE_ENV: production
-          NITRO_PRESET: ${{ inputs.nitro_preset }}
-          RELEASE_TAG: ${{ inputs.release_tag }}
-        run: ${{ inputs.build_command }}
+        run: pnpm build
       - name: Deploy to Cloudflare Workers
         uses: Shion1305/cloudflare-worker-deploy@v1
         with:
