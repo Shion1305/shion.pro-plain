@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cloudflare Worker Deploy (Nuxt)
-        uses: .github/actions/cf-worker-deploy@main
+        uses: ./.github/actions/cf-worker-deploy@main
         with:
           worker_name: shion-pro-release
           wrangler_template: wrangler.template.toml
