@@ -1,0 +1,31 @@
+name: Deploy to Cloudflare (Release)
+on:
+  release:
+    types:
+      - released
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release Tag'
+        required: true
+        default: 'v0.0.0'
+concurrency:
+  group: cloudflare-worker-prod
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.event_name == 'pull_request' && github.head_ref || github.event.release.tag_name || github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cloudflare Worker Deploy (Nuxt)
+        uses: .github/actions/cf-worker-deploy@main
+        with:
+          worker_name: shion-pro-release
+          wrangler_template: wrangler.template.toml
+          release_tag: ${{ env.RELEASE_TAG }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
