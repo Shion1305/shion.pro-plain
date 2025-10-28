@@ -22,10 +22,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cloudflare Worker Deploy (Nuxt)
-        uses: ./.github/actions/cf-worker-deploy@main
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: pnpm
+      - name: Install deps
+        shell: bash
+        run: ${{ inputs.install_command }}
+      - name: Build (Nuxt)
+        shell: bash
+        env:
+          NODE_ENV: production
+          NITRO_PRESET: ${{ inputs.nitro_preset }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: ${{ inputs.build_command }}
+      - name: Deploy to Cloudflare Workers
+        uses: Shion1305/cloudflare-worker-deploy@v1
         with:
           worker_name: shion-pro-release
-          wrangler_template: wrangler.template.toml
-          release_tag: ${{ env.RELEASE_TAG }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          account_id: 1ea2d4d3f13ac740bfb6be382649fd8a
