@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "packageManager": "pnpm@10.19.0",
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
     "nuxt": "^4.2.0",
