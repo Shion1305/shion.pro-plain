@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { definePageMeta } from "#imports";
-
 useHead({
   title: "Shion's Website",
   meta: [
@@ -56,12 +54,8 @@ const socialLinks = [
       <div class="relative z-10 space-y-8">
         <!-- Header -->
         <header class="space-y-2">
-          <h1 class="text-4xl sm:text-5xl font-playwrite tracking-tight">
-            Hello👋
-          </h1>
-          <h2
-            class="text-3xl sm:text-4xl font-playwrite mt-4 mb-2 leading-snug"
-          >
+          <h1 class="text-4xl sm:text-5xl font-playwrite tracking-tight">Hello👋</h1>
+          <h2 class="text-3xl sm:text-4xl font-playwrite mt-4 mb-2 leading-snug">
             My name is
             <span
               class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 whitespace-nowrap"
@@ -71,12 +65,10 @@ const socialLinks = [
         </header>
 
         <!-- Bio -->
-        <p
-          class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed"
-        >
-          I'm a second-year master's student at the Yokohama National
-          University. I also work as a software engineer intern in Tokyo. My
-          primary interests are in software engineering, DevOps, and security.
+        <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
+          I'm a second-year master's student at the Yokohama National University. I also work as a
+          software engineer intern in Tokyo. My primary interests are in software engineering,
+          DevOps, and security.
         </p>
 
         <!-- Social Links -->
