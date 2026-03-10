@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import {definePageMeta} from "#imports";
+import { definePageMeta } from "#imports";
 
 useHead({
   title: "Shion's Website",
   meta: [
     {
       name: "description",
-      content: "Hi👋 I'm Shion Ichikawa!!"
+      content: "Hi👋 I'm Shion Ichikawa!!",
     },
     {
       name: "viewport",
-      content: "width=device-width, initial-scale=1"
-    }
-  ]
+      content: "width=device-width, initial-scale=1",
+    },
+  ],
 });
 </script>
 
@@ -21,8 +21,9 @@ useHead({
     <h1>Hello👋</h1>
     <h2>My name is Shion!!</h2>
     <p>
-      I'm a first-year master's student at the Yokohama National University. I also work as a software engineer intern
-      in Tokyo. My primary interests are in software engineering, DevOps, and security.
+      I'm a second-year master's student at the Yokohama National University
+      Graduate School. I also work as a software engineer intern in Tokyo. My
+      primary interests are in software engineering, DevOps, and security.
     </p>
     <ul>
       <li>
@@ -42,7 +43,8 @@ useHead({
 </template>
 
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-family: "Playwrite GB J", cursive;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -57,7 +59,7 @@ h1, h2 {
   font-style: normal;
 }
 
-.page-root{
+.page-root {
   max-width: 40rem;
 }
 </style>
