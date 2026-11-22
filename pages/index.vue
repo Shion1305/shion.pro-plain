@@ -4,7 +4,8 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "Hi👋 I'm Shion Ichikawa!!",
+      content:
+        "Shion Ichikawa is a software/platform engineer at Goldman Sachs Technology, working in Market Data Engineering.",
     },
     {
       name: "viewport",
@@ -66,9 +67,8 @@ const socialLinks = [
 
         <!-- Bio -->
         <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
-          I'm a second-year master's student at the Yokohama National University. I also work as a
-          software engineer intern in Tokyo. My primary interests are in software engineering,
-          DevOps, and security.
+          I'm a software/platform engineer at Goldman Sachs Technology, working in Market Data
+          Engineering. My primary interests are software engineering, DevOps, and security.
         </p>
 
         <!-- Social Links -->
