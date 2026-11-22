@@ -5,7 +5,7 @@ useHead({
     {
       name: "description",
       content:
-        "Shion Ichikawa is a software/platform engineer at Goldman Sachs Technology, working in Market Data Engineering.",
+        "Shion Ichikawa works in software and platform engineering on the Market Data Engineering team at Goldman Sachs, with an interest in DevSecOps.",
     },
     {
       name: "viewport",
@@ -67,8 +67,9 @@ const socialLinks = [
 
         <!-- Bio -->
         <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
-          I'm a software/platform engineer at Goldman Sachs Technology, working in Market Data
-          Engineering. My primary interests are software engineering, DevOps, and security.
+          I work in software and platform engineering on the Market Data Engineering team at Goldman
+          Sachs. I'm interested in DevSecOps and how teams collaborate across an organization to build a
+          culture of secure, sustainable engineering that evolves with the business.
         </p>
 
         <!-- Social Links -->
