@@ -68,8 +68,8 @@ const socialLinks = [
         <!-- Bio -->
         <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
           I work in software and platform engineering on the Market Data Engineering team at Goldman
-          Sachs. I'm interested in DevSecOps and how teams collaborate across an organization to build a
-          culture of secure, sustainable engineering that evolves with the business.
+          Sachs. I'm interested in DevSecOps and how teams collaborate across an organization to
+          build a culture of secure, sustainable engineering that evolves with the business.
         </p>
 
         <!-- Social Links -->
