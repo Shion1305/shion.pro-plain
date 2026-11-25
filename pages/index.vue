@@ -66,12 +66,26 @@ const socialLinks = [
         </header>
 
         <!-- Bio -->
-        <div class="space-y-4">
-          <img src="/goldman-sachs.svg" alt="" width="86" height="36" class="h-8 w-auto invert" />
-          <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
-            I work on the Market Data Engineering team at Goldman Sachs, focusing on software and
-            platform engineering. I’m interested in DevSecOps and how teams build secure,
-            sustainable systems together.
+        <div class="space-y-4 font-titillium">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <img
+              src="/goldman-sachs.svg"
+              alt="Goldman Sachs"
+              width="86"
+              height="36"
+              class="h-auto w-16 shrink-0 invert sm:w-[86px]"
+            />
+            <div class="min-w-0 border-l border-white/20 pl-4 sm:pl-5">
+              <p class="text-lg font-semibold leading-tight text-slate-100 sm:text-xl">
+                Market Data Engineering
+              </p>
+              <p class="mt-1 text-sm leading-snug text-slate-400 sm:text-base">
+                Software &amp; platform engineering
+              </p>
+            </div>
+          </div>
+          <p class="text-lg leading-relaxed text-slate-300 sm:text-xl">
+            I’m interested in DevSecOps and how teams build secure, sustainable systems together.
           </p>
         </div>
 
