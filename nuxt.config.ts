@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       "DM Sans": [400, 500, 600, 700],
-      "Instrument Serif": { wght: 400, ital: [0, 1] },
+      "Instrument Serif": { wght: [400], ital: [400] },
     },
     display: "swap",
   },
