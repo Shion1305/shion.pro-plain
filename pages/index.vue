@@ -63,6 +63,7 @@ const socialLinks = [
               >Shion!!</span
             >
           </h2>
+          <p class="font-titillium text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
         </header>
 
         <!-- Bio -->
@@ -85,7 +86,7 @@ const socialLinks = [
             </div>
           </div>
           <p class="text-lg leading-relaxed text-slate-300 sm:text-xl">
-            I’m into DevSecOps❤️ because it brings developers, security teams, and operators together.
+            I’m interested in how developers, security teams, and operators work together.
             I like finding ways to make secure choices easier, from code review to production.
           </p>
         </div>
