@@ -85,7 +85,8 @@ const socialLinks = [
             </div>
           </div>
           <p class="text-lg leading-relaxed text-slate-300 sm:text-xl">
-            I’m interested in DevSecOps and how teams build secure, sustainable systems together.
+            I’m into DevSecOps❤️ because it brings developers, security teams, and operators together.
+            I like finding ways to make secure choices easier, from code review to production.
           </p>
         </div>
 
