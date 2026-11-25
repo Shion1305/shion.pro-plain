@@ -162,6 +162,6 @@ export function describeTenure(role: Role, currentMonth: string) {
     end.getUTCMonth() -
     start.getUTCMonth() +
     1;
-  const duration = role.shortDuration ?? (months <= 1 ? "up to 1 month" : `~${months} months`);
+  const duration = role.shortDuration ?? (months <= 1 ? "up to 1 month" : `${months} months`);
   return { period, duration };
 }
