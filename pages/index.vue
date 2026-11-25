@@ -82,11 +82,8 @@ const profiles = [
             <h2 id="experience-heading">Experience</h2>
           </div>
           <div class="role">
-            <img src="/goldman-sachs.png" width="84" height="84" alt="" />
-            <div>
-              <h3>Goldman Sachs</h3>
-              <p>Market Data Engineering</p>
-            </div>
+            <h3><img src="/goldman-sachs.svg" width="129" height="54" alt="Goldman Sachs" /></h3>
+            <p>Market Data Engineering</p>
           </div>
           <p class="role-description">
             I work on the Market Data Engineering team. I’m interested in DevSecOps and how teams
@@ -309,27 +306,16 @@ h2 {
   font-size: clamp(2.1rem, 3.1vw, 3.15rem);
   margin-top: 0.35rem;
 }
-.role {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
 .role img {
-  width: clamp(54px, 5.4vw, 76px);
+  width: 8.0625rem;
   height: auto;
-  flex-shrink: 0;
-}
-.role h3 {
-  font-size: 1.12rem;
-  font-weight: 650;
-  letter-spacing: -0.025em;
 }
 .role p,
 .role-description {
   font-size: 0.9rem;
 }
 .role p {
-  margin-top: 0.15rem;
+  margin-top: 0.7rem;
   color: var(--muted);
 }
 .projects {
