@@ -23,18 +23,19 @@ jobs:
       NITRO_PRESET: cloudflare_module
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
         with:
           run_install: false
       - name: Setup Node
-        uses: actions/setup-node@v7.0.0
+        uses: actions/setup-node@v7
         with:
+          node-version: 24
           cache: pnpm
       - name: Install deps
         shell: bash
-        run: pnpm i --frozen-lockfile
+        run: pnpm install --frozen-lockfile --prod=false
       - name: Build (Nuxt)
         shell: bash
         run: pnpm build
