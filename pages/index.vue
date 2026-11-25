@@ -63,14 +63,33 @@ const socialLinks = [
               >Shion!!</span
             >
           </h2>
+          <p class="font-titillium text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
         </header>
 
         <!-- Bio -->
-        <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
-          I work in software and platform engineering on the Market Data Engineering team at Goldman
-          Sachs. I'm interested in DevSecOps and how teams collaborate across an organization to
-          build a culture of secure, sustainable engineering that evolves with the business.
-        </p>
+        <div class="space-y-4 font-titillium">
+          <div class="flex items-center gap-4 sm:gap-5">
+            <img
+              src="/goldman-sachs.svg"
+              alt="Goldman Sachs"
+              width="86"
+              height="36"
+              class="h-auto w-16 shrink-0 invert sm:w-[86px]"
+            />
+            <div class="min-w-0 border-l border-white/20 pl-4 sm:pl-5">
+              <p class="text-lg font-semibold leading-tight text-slate-100 sm:text-xl">
+                Market Data Engineering
+              </p>
+              <p class="mt-1 text-sm leading-snug text-slate-400 sm:text-base">
+                Software &amp; platform engineering
+              </p>
+            </div>
+          </div>
+          <p class="text-lg leading-relaxed text-slate-300 sm:text-xl">
+            I’m interested in how developers, security teams, and operators work together.
+            I like finding ways to make secure choices easier, from code review to production.
+          </p>
+        </div>
 
         <!-- Social Links -->
         <div class="pt-6">
