@@ -133,6 +133,7 @@ export const internships: Role[] = [
     role: "Infrastructure Intern",
     start: "2023-08",
     end: "2023-08",
+    shortDuration: "3 weeks",
     logo: fastRetailing,
   },
   {
