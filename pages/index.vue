@@ -1,136 +1,496 @@
 <script setup lang="ts">
-useHead({
-  title: "Shion's Website",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Shion Ichikawa works in software and platform engineering on the Market Data Engineering team at Goldman Sachs, with an interest in DevSecOps.",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1",
-    },
-  ],
+const description =
+  "Shion Ichikawa works in software and platform engineering on the Market Data Engineering team at Goldman Sachs. Explore his open-source projects and interests in DevSecOps.";
+
+useHead({ htmlAttrs: { lang: "en" } });
+useSeoMeta({
+  title: "Shion Ichikawa — Software & Platform Engineering",
+  description,
+  ogTitle: "Shion Ichikawa — Engineering Portfolio",
+  ogDescription: description,
+  ogType: "website",
 });
 
-const socialLinks = [
+const projects = [
   {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/shion1305",
-    icon: "M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z",
+    name: "Cloudflare Worker Deploy",
+    field: "Developer tooling",
+    description:
+      "A GitHub Action that generates a Wrangler configuration and deploys a Cloudflare Worker from a release workflow. It powers this site’s deployments.",
+    url: "https://github.com/Shion1305/cloudflare-worker-deploy",
   },
   {
-    name: "GitHub",
-    url: "https://github.com/shion1305",
-    icon: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
+    name: "Seiryo Festival",
+    field: "Web development",
+    description:
+      "The 2023 website for Yokohama National University’s Seiryo Festival, built with the student festival engineering team.",
+    url: "https://github.com/YNUFes-tech/ynufes-seiryo23",
   },
-  {
-    name: "X",
-    url: "https://x.com/shion1305",
-    icon: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
-  },
-  {
-    name: "Wantedly",
-    url: "https://wantedly.com/id/shion1305",
-    icon: "M18.453 14.555c-.171-.111-.658-.764-2.006-3.982a9.192 9.192 0 0 0-.237-.526l-.274-.664-2.362-5.702H8.85l2.362 5.702 2.362 5.706 2.181 5.267a.196.196 0 0 0 .362 0l2.373-5.682a.1.1 0 0 0-.037-.119zm-8.85 0c-.171-.111-.658-.764-2.006-3.982a8.971 8.971 0 0 0-.236-.525l-.276-.665-2.36-5.702H0l2.362 5.702 2.362 5.706 2.181 5.267a.196.196 0 0 0 .362 0l2.374-5.682a.098.098 0 0 0-.038-.119ZM24 6.375a2.851 2.851 0 0 1-2.851 2.852 2.851 2.851 0 0 1-2.852-2.852 2.851 2.851 0 0 1 2.852-2.851A2.851 2.851 0 0 1 24 6.375Z",
-  },
+];
+const profiles = [
+  { name: "GitHub", url: "https://github.com/Shion1305" },
+  { name: "LinkedIn", url: "https://linkedin.com/in/shion1305" },
+  { name: "X", url: "https://x.com/shion1305" },
+  { name: "Wantedly", url: "https://wantedly.com/id/shion1305" },
 ];
 </script>
 
 <template>
-  <main class="w-full max-w-2xl animate-fade-in-up">
-    <!-- Glassmorphic Card -->
-    <div
-      class="relative overflow-hidden rounded-3xl bg-white/5 p-8 sm:p-12 shadow-2xl backdrop-blur-xl border border-white/10 group"
-    >
-      <!-- Decorative gradient blobs -->
-      <div
-        class="absolute -top-32 -right-32 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none"
-      ></div>
-      <div
-        class="absolute -bottom-32 -left-32 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none"
-      ></div>
-
-      <div class="relative z-10 space-y-8">
-        <!-- Header -->
-        <header class="space-y-2">
-          <h1 class="text-4xl sm:text-5xl font-playwrite tracking-tight">Hello👋</h1>
-          <h2 class="text-3xl sm:text-4xl font-playwrite mt-4 mb-2 leading-snug">
-            My name is
-            <span
-              class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 whitespace-nowrap"
-              >Shion!!</span
-            >
-          </h2>
-        </header>
-
-        <!-- Bio -->
-        <p class="text-lg sm:text-xl text-slate-300 font-titillium leading-relaxed">
-          I work in software and platform engineering on the Market Data Engineering team at Goldman
-          Sachs. I'm interested in DevSecOps and how teams collaborate across an organization to
-          build a culture of secure, sustainable engineering that evolves with the business.
-        </p>
-
-        <!-- Social Links -->
-        <div class="pt-6">
-          <h3
-            class="text-sm font-semibold tracking-wider text-slate-400 uppercase mb-4 font-titillium"
+  <div id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="masthead wrap">
+      <a href="#top" class="identity" aria-label="Shion Ichikawa, back to top">
+        <span class="monogram" aria-hidden="true">si</span>
+        <span>Shion Ichikawa</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#connect">Connect</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="name">
+        <div class="intro">
+          <p class="kicker"><span class="rule" aria-hidden="true"></span> Engineering portfolio</p>
+          <h1 id="name">Shion <em>Ichikawa</em></h1>
+          <p class="intro-text">
+            I work in software and platform engineering, with a particular interest in how teams
+            build and operate secure systems together.
+          </p>
+          <a class="work-link" href="#projects"
+            >Explore my projects <span aria-hidden="true">↓</span></a
           >
-            Connect with me
-          </h3>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <template v-for="link in socialLinks" :key="link.name">
-              <a
-                :href="link.url"
-                target="_blank"
-                :aria-label="link.name"
-                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 group/link"
-              >
-                <svg
-                  class="w-7 h-7 fill-slate-400 group-hover/link:fill-emerald-400 transition-colors duration-300"
-                  viewBox="0 0 24 24"
-                >
-                  <path :d="link.icon" />
-                </svg>
-                <span
-                  class="mt-3 text-sm font-medium text-slate-300 group-hover/link:text-emerald-400 transition-colors duration-300 font-titillium"
-                  >{{ link.name }}</span
-                >
-              </a>
-            </template>
-          </div>
         </div>
+        <figure class="portrait">
+          <div class="photo">
+            <img
+              src="/shion-ichikawa.webp"
+              width="567"
+              height="710"
+              alt="Shion Ichikawa smiling"
+              fetchpriority="high"
+            />
+          </div>
+          <figcaption><span aria-hidden="true">⌖</span> From Yokohama, Japan</figcaption>
+        </figure>
+      </section>
+      <section id="experience" class="experience" aria-labelledby="experience-heading">
+        <div class="experience-inner wrap">
+          <div>
+            <p class="kicker">Current role</p>
+            <h2 id="experience-heading">Experience</h2>
+          </div>
+          <div class="role">
+            <img src="/goldman-sachs.png" width="84" height="84" alt="" />
+            <div>
+              <h3>Goldman Sachs</h3>
+              <p>Market Data Engineering</p>
+            </div>
+          </div>
+          <p class="role-description">
+            I work on the Market Data Engineering team. I’m interested in DevSecOps and how teams
+            build a culture of secure, sustainable engineering as the business evolves.
+          </p>
+        </div>
+      </section>
+      <section id="projects" class="projects wrap" aria-labelledby="projects-heading">
+        <div class="section-heading">
+          <h2 id="projects-heading">Selected <em>projects</em></h2>
+          <a class="text-link" href="https://github.com/Shion1305"
+            >All on GitHub <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <ul>
+          <li v-for="project in projects" :key="project.url">
+            <a :href="project.url" class="project">
+              <div>
+                <p class="kicker">{{ project.field }}</p>
+                <h3>{{ project.name }}</h3>
+              </div>
+              <p class="project-description">{{ project.description }}</p>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer id="connect">
+      <div class="footer-inner wrap">
+        <h2>Connect</h2>
+        <nav aria-label="Social profiles">
+          <a v-for="profile in profiles" :key="profile.name" :href="profile.url"
+            >{{ profile.name }} <span aria-hidden="true">↗</span></a
+          >
+        </nav>
       </div>
-    </div>
-  </main>
+    </footer>
+  </div>
 </template>
 
 <style scoped>
-.font-playwrite {
-  font-family: "Playwrite GB J", cursive;
-  font-optical-sizing: auto;
-  font-style: normal;
+.wrap {
+  width: min(1120px, calc(100% - 8rem));
+  margin-inline: auto;
 }
-
-.font-titillium {
-  font-family: "Titillium Web", sans-serif;
-  font-style: normal;
+.masthead,
+.identity,
+.masthead nav,
+.kicker,
+.work-link,
+.section-heading,
+.text-link,
+.footer-inner,
+.footer-inner nav {
+  display: flex;
+  align-items: center;
 }
-
-/* Custom animation for subtle entrance */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+.masthead {
+  min-height: 80px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.identity {
+  gap: 0.8rem;
+  font-size: 0.97rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.monogram {
+  display: grid;
+  place-content: center;
+  height: 36px;
+  width: 36px;
+  background: var(--blue);
+  color: white;
+  font: italic 30px/0.9 var(--serif);
+  padding-right: 3px;
+}
+.masthead nav {
+  gap: clamp(1rem, 3vw, 2.5rem);
+  font-size: 0.87rem;
+  font-weight: 550;
+}
+.masthead nav a:hover,
+.text-link:hover,
+.footer-inner a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  transform: translateY(-140%);
+  padding: 0.75rem 1rem;
+  background: var(--ink);
+  color: white;
+  z-index: 2;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 30%);
+  align-items: center;
+  gap: clamp(3rem, 9vw, 8.5rem);
+  padding-block: clamp(3.2rem, 7vw, 6.5rem);
+}
+.kicker,
+figcaption {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  font-weight: 650;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.kicker {
+  color: var(--blue);
+  gap: 0.7rem;
+}
+.rule {
+  width: 2.2rem;
+  height: 2px;
+  background: currentColor;
+}
+h1,
+h2,
+.project h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+h1 {
+  margin: 1.2rem 0 1.45rem;
+  font-size: clamp(5rem, 8.7vw, 8.15rem);
+  line-height: 0.9;
+}
+h1 em {
+  display: block;
+  color: var(--blue);
+}
+em {
+  font-weight: inherit;
+}
+.intro-text,
+.project-description,
+.role-description {
+  color: var(--muted);
+  line-height: 1.65;
+}
+.intro-text {
+  max-width: 33rem;
+  font-size: clamp(1rem, 1.4vw, 1.17rem);
+}
+.work-link {
+  display: inline-flex;
+  gap: 1.1rem;
+  margin-top: 1.65rem;
+  padding: 0.7rem 1.12rem;
+  background: var(--blue);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.work-link:hover {
+  background: #1b318c;
+}
+.work-link span,
+.text-link span {
+  font-size: 1.2em;
+}
+.portrait {
+  padding-right: 8px;
+}
+.photo {
+  position: relative;
+  aspect-ratio: 4/4.7;
+  background: #dddcd6;
+  box-shadow: 8px 8px var(--blue);
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  object-position: 50% 62%;
+}
+figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+figcaption span {
+  color: var(--blue);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+h2 {
+  font-size: clamp(2.6rem, 4.4vw, 4.25rem);
+  line-height: 1.05;
+}
+.experience {
+  background: #e8ecf0;
+  border-block: 1px solid #d5dbe0;
+}
+.experience-inner {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 0.82fr 1.15fr 1.5fr;
+  gap: 2rem;
+  padding-block: 2.65rem;
+}
+.experience h2 {
+  font-size: clamp(2.1rem, 3.1vw, 3.15rem);
+  margin-top: 0.35rem;
+}
+.role {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.role img {
+  width: clamp(54px, 5.4vw, 76px);
+  height: auto;
+  flex-shrink: 0;
+}
+.role h3 {
+  font-size: 1.12rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.role p,
+.role-description {
+  font-size: 0.9rem;
+}
+.role p {
+  margin-top: 0.15rem;
+  color: var(--muted);
+}
+.projects {
+  padding-block: clamp(3rem, 6vw, 5.5rem);
+}
+.section-heading {
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.section-heading em {
+  color: var(--blue);
+}
+.text-link {
+  color: var(--blue);
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+.project {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 2.5rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
+}
+.projects li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.project h3 {
+  font-size: clamp(1.85rem, 3vw, 2.75rem);
+  line-height: 1.12;
+  margin-top: 0.45rem;
+}
+.project .kicker {
+  font-size: 0.66rem;
+}
+.project-description {
+  font-size: 0.95rem;
+}
+.arrow {
+  display: grid;
+  width: 2.55rem;
+  height: 2.55rem;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--blue);
+  font-size: 1.25rem;
+}
+.project:hover .arrow,
+.project:focus-visible .arrow {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+.project:hover h3 {
+  color: var(--blue);
+}
+footer {
+  background: #202923;
+  color: var(--paper);
+}
+.footer-inner {
+  padding-block: 2.75rem;
+  justify-content: space-between;
+  gap: 1.75rem;
+}
+.footer-inner h2 {
+  font-size: 2.75rem;
+}
+.footer-inner nav {
+  flex-wrap: wrap;
+  gap: 1rem 1.7rem;
+}
+.footer-inner a {
+  font-size: 0.9rem;
+  padding-block: 0.3rem;
+}
+.footer-inner a span {
+  color: #bfd5bc;
+}
+@media (max-width: 900px) {
+  .wrap {
+    width: min(100% - 3.5rem, 1120px);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .experience-inner {
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1.5rem;
+  }
+  .role-description {
+    grid-column: 2;
+    margin-top: -0.55rem;
   }
 }
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@media (max-width: 640px) {
+  .wrap {
+    width: calc(100% - 2.5rem);
+  }
+  .masthead {
+    min-height: 67px;
+  }
+  .identity {
+    gap: 0.45rem;
+  }
+  .identity > span:last-child {
+    display: none;
+  }
+  .masthead nav {
+    gap: 1.05rem;
+    font-size: 0.81rem;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2.35rem;
+    padding-block: 2.8rem;
+  }
+  h1 {
+    font-size: clamp(4.65rem, 18vw, 6rem);
+  }
+  .intro-text {
+    max-width: 32rem;
+  }
+  .portrait {
+    width: min(77%, 19rem);
+    justify-self: center;
+  }
+  .photo {
+    aspect-ratio: 1.13;
+  }
+  .experience-inner {
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+    padding-block: 2rem;
+  }
+  .role-description {
+    grid-column: auto;
+    margin: 0;
+  }
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.4rem;
+  }
+  .project {
+    grid-template-columns: 1fr auto;
+    gap: 0.7rem 1rem;
+    padding-block: 1.45rem;
+  }
+  .project-description {
+    grid-column: 1;
+  }
+  .arrow {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>
