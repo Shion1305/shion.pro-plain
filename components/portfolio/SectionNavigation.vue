@@ -8,12 +8,18 @@ function syncSection() {
   animationFrame = 0;
   if (!navigation.value) return;
   const compact = window.matchMedia("(max-width: 767px)").matches;
-  const sections = ["profile", "overview", compact ? "achievements" : "results"];
+  const last = compact ? "achievements" : "results";
+  const sections = ["profile", "overview", last];
   const readingLine = navigation.value.offsetHeight + 2;
+  const atPageEnd =
+    window.scrollY > 0 &&
+    window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
   let current = "profile";
   for (const id of sections) {
-    const section = document.getElementById(id);
-    if (section && section.getBoundingClientRect().top <= readingLine) current = id;
+    const bounds = document.getElementById(id)?.getBoundingClientRect();
+    if (!bounds || bounds.bottom <= readingLine) continue;
+    if (bounds.top <= readingLine || (id === last && atPageEnd && bounds.top < window.innerHeight))
+      current = id;
   }
   active.value = current;
 }

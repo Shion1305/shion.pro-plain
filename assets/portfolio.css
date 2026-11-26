@@ -12,10 +12,12 @@
 .portfolio > :is(section, nav) {
   padding-inline: var(--page-edge);
 }
-.portfolio section[id] {
+.portfolio section[id],
+#achievements,
+.inline-disclosure :is(summary, .additional-entries) {
   scroll-margin-top: var(--nav-height);
 }
-.portfolio :is(a, summary):focus-visible {
+.portfolio :is(a, summary, button):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -105,6 +107,7 @@
 }
 #overview {
   display: grid;
+  align-items: start;
   grid-template-columns: minmax(0, 1.14fr) minmax(0, 1fr);
   gap: 2rem;
   padding-block: clamp(2rem, 4vw, 3.5rem);
@@ -131,10 +134,12 @@
   column-gap: clamp(0.6rem, 1vw, 0.9rem);
   align-items: start;
 }
-.role-timeline li:not(:last-child) {
+.role-timeline li:not(:last-child),
+#experience:has(details[open]) > .role-timeline > li:last-child {
   padding-bottom: 1.05rem;
 }
-.role-timeline li:not(:last-child)::before {
+.role-timeline li:not(:last-child)::before,
+#experience:has(details[open]) > .role-timeline > li:last-child::before {
   content: "";
   position: absolute;
   left: 0.2rem;
@@ -203,8 +208,8 @@
 }
 #results {
   border-top: 1px solid var(--line);
-  min-height: calc(100svh - var(--nav-height));
-  padding-block: 2.5rem 6.5rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
 }
 .result-list {
   max-width: 48rem;
@@ -217,10 +222,19 @@
 .result-list h3 {
   margin: 0.13rem 0;
 }
-.portfolio details {
-  margin-top: 0.9rem;
+.inline-disclosure {
+  display: flex;
+  flex-direction: column;
 }
-.portfolio summary {
+.inline-disclosure summary {
+  order: 1;
+}
+.inline-disclosure.enhanced[open] > summary {
+  display: none;
+}
+.inline-disclosure :is(summary, .collapse-entries) {
+  overflow-anchor: none;
+  margin-top: 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -238,8 +252,10 @@
   content: "+";
   font: 400 1.2rem/1 sans-serif;
 }
-.portfolio details[open] > summary::before {
+.portfolio details[open] > summary::before,
+.collapse-entries::before {
   content: "−";
+  font: 400 1.2rem/1 sans-serif;
 }
 .portfolio .open-label,
 .portfolio details[open] > summary .closed-label {
@@ -248,11 +264,14 @@
 .portfolio details[open] > summary .open-label {
   display: inline;
 }
-.portfolio summary:hover span {
+.portfolio summary:hover span,
+.collapse-entries:hover {
   text-decoration: underline;
 }
-.portfolio details[open] > :nth-child(2) {
-  margin-top: 0.6rem;
+#results .additional-entries .result-list {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
 }
 @media (max-width: 767px) {
   .profile-name {
@@ -269,10 +288,5 @@
   #achievements {
     border-top: 1px solid var(--line);
     padding-top: 1.5rem;
-  }
-}
-@media (scripting: none) {
-  .role-count {
-    display: none;
   }
 }

@@ -155,7 +155,7 @@ export function describeTenure(role: Role, currentMonth: string) {
   const start = new Date(role.start + "-01T00:00:00Z");
   const end = new Date((role.end ?? currentMonth) + "-01T00:00:00Z");
   const period = role.end
-    ? monthLabel.formatRange(start, end)
+    ? monthLabel.formatRange(start, end).replace(/\s+/g, " ")
     : monthLabel.format(start) + " – present";
   // Dates have month precision. Count the calendar months covered unless a short placement has a known length.
   const months =
