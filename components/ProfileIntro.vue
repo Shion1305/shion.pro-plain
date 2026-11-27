@@ -1,16 +1,6 @@
 <template>
   <div class="grid gap-6 md:grid-cols-2 md:items-center md:gap-10">
-    <header class="space-y-2">
-      <p class="greeting">Hello👋</p>
-      <h1 id="profile-name" class="profile-name">
-        <span
-          class="inline-block max-w-full bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400"
-          >Shion Ichikawa</span
-        >
-        <span lang="ja" class="mt-2 block font-sans">市川 詩恩</span>
-      </h1>
-      <p class="text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
-    </header>
+    <ProfileGreeting />
     <div class="profile-bio space-y-4">
       <div class="flex items-center gap-4 sm:gap-5">
         <img
