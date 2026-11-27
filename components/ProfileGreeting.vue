@@ -282,12 +282,10 @@ onPrehydrate(() => {
   0%,
   41% {
     transform: translate(var(--name-x), var(--name-y)) scale(var(--name-scale));
-    letter-spacing: 0;
   }
   86%,
   100% {
     transform: none;
-    letter-spacing: -0.055em;
   }
 }
 @keyframes dissolve {

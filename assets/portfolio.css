@@ -62,7 +62,6 @@
   margin-block: 0.58rem 0.8rem;
   font-size: clamp(2.2rem, 4.4vw, 4rem);
   line-height: 1.42;
-  letter-spacing: -0.055em;
 }
 .profile-name [lang="ja"] {
   color: #dbe6f2;
