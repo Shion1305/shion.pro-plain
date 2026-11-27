@@ -90,7 +90,6 @@ onPrehydrate(() => {
           ><span class="intro-punctuation">!!</span></span
         >
       </p>
-      <p class="intro-tagline text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
     </div>
   </div>
 </template>
@@ -158,7 +157,7 @@ onPrehydrate(() => {
   }
 
   .intro-line {
-    margin-block: 0.2rem 0.45rem;
+    margin-block-start: 0.2rem;
     font-size: clamp(1.35rem, 5.4vw, 2.25rem);
   }
 
@@ -186,8 +185,7 @@ onPrehydrate(() => {
   .intro-card::before,
   .intro-hello,
   .intro-prefix,
-  .intro-punctuation,
-  .intro-tagline {
+  .intro-punctuation {
     animation: dissolve var(--duration) ease-in-out both;
   }
 }
