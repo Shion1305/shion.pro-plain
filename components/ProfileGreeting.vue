@@ -1,77 +1,71 @@
 <script setup lang="ts">
-const firstName = ref<HTMLElement | null>(null);
-const visible = ref(true);
-const stage = ref<HTMLElement | null>(null);
-const disc = ref<HTMLElement | null>(null);
-const name = ref<HTMLElement | null>(null);
-let listeners: AbortController | undefined;
+// Run with the initial HTML so a cold bundle or font cache cannot delay the greeting.
+onPrehydrate(() => {
+  const stage = document.querySelector<HTMLElement>(".greeting-intro");
+  const source = stage?.querySelector<HTMLElement>(".intro-name-slot");
+  const target = document.querySelector<HTMLElement>("#profile-name .first-name");
+  if (!stage || !source || !target) return;
 
-function finish() {
-  visible.value = false;
-  listeners?.abort();
-}
-
-onMounted(async () => {
   const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
   const navigation = performance.getEntriesByType("navigation")[0] as
     PerformanceNavigationTiming | undefined;
-  if (
-    !motion.matches ||
-    location.hash ||
-    window.scrollY > 1 ||
-    navigation?.type === "back_forward" ||
-    document.hidden
-  ) {
-    finish();
-    return;
-  }
+  if (!motion.matches || navigation?.type === "back_forward") return;
 
-  listeners = new AbortController();
-  const options = { signal: listeners.signal, passive: true };
-  for (const event of [
-    "pointerdown",
-    "keydown",
-    "scroll",
-    "wheel",
-    "resize",
-    "hashchange",
-    "pagehide",
-  ]) {
+  const listeners = new AbortController();
+  const options = { passive: true, signal: listeners.signal };
+  // The slot stays in place while its text travels, even when a font swap changes its width.
+  const alignName = () => {
+    const from = source.getBoundingClientRect();
+    const to = target.getBoundingClientRect();
+    if (!from.width || !to.width) return;
+    source.style.setProperty("--travel-x", `${to.left - from.left}px`);
+    source.style.setProperty(
+      "--travel-y",
+      `${to.top + to.height / 2 - from.top - from.height / 2}px`,
+    );
+    source.style.setProperty("--name-scale", String(to.width / from.width));
+  };
+  const observer = new ResizeObserver(alignName);
+
+  const finish = () => {
+    delete stage.dataset.playing;
+    observer.disconnect();
+    listeners.abort();
+  };
+
+  const start = () => {
+    if (!motion.matches || location.hash || window.scrollY > 1) {
+      finish();
+      return;
+    }
+    stage.dataset.playing = "";
+    alignName();
+    observer.observe(source);
+    observer.observe(target);
+    window.addEventListener("resize", alignName, options);
+    stage.addEventListener(
+      "animationend",
+      (event) => {
+        if (event.target === stage && !event.pseudoElement) finish();
+      },
+      options,
+    );
+  };
+
+  for (const event of ["pointerdown", "keydown", "wheel", "scroll", "hashchange", "pagehide"]) {
     window.addEventListener(event, finish, options);
   }
   motion.addEventListener("change", finish, options);
-  document.addEventListener("visibilitychange", finish, options);
-
-  await document.fonts.ready;
-  if (
-    !visible.value ||
-    !stage.value ||
-    !disc.value ||
-    !name.value ||
-    !firstName.value ||
-    getComputedStyle(stage.value).visibility === "hidden"
-  ) {
-    finish();
-    return;
-  }
-
-  // Move the greeting around the center of the word so the two first names coincide.
-  const from = name.value.getBoundingClientRect();
-  const to = firstName.value.getBoundingClientRect();
-  if (!from.width || !to.width) {
-    finish();
-    return;
-  }
-  const box = disc.value.getBoundingClientRect();
-  const x = from.left + from.width / 2;
-  const y = from.top + from.height / 2;
-  disc.value.style.transformOrigin = `${x - box.left}px ${y - box.top}px`;
-  disc.value.style.setProperty("--travel-x", `${to.left + to.width / 2 - x}px`);
-  disc.value.style.setProperty("--travel-y", `${to.top + to.height / 2 - y}px`);
-  disc.value.style.setProperty("--name-scale", String(to.width / from.width));
-  stage.value.classList.add("is-playing");
+  document.addEventListener(
+    "visibilitychange",
+    () => {
+      if (!document.hidden) start();
+      else if (stage.hasAttribute("data-playing")) finish();
+    },
+    options,
+  );
+  if (!document.hidden) start();
 });
-onBeforeUnmount(finish);
 </script>
 
 <template>
@@ -80,22 +74,23 @@ onBeforeUnmount(finish);
     <h1 id="profile-name" class="profile-name">
       <span
         class="inline-block max-w-full bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400"
-        ><span ref="firstName" class="first-name inline-block">Shion</span> Ichikawa</span
+        ><span class="first-name inline-block">Shion</span> Ichikawa</span
       >
       <span lang="ja" class="mt-2 block font-sans">市川 詩恩</span>
     </h1>
     <p class="text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
   </header>
-  <div
-    v-if="visible"
-    ref="stage"
-    class="greeting-intro"
-    aria-hidden="true"
-    @animationend.self="finish"
-  >
-    <div ref="disc" class="intro-disc" @animationend.self="finish">
-      <span class="intro-hello">Hello, I’m</span>
-      <span ref="name" class="intro-name">Shion</span>
+  <div class="greeting-intro" aria-hidden="true">
+    <div class="intro-card">
+      <p class="intro-hello">Hello👋</p>
+      <p class="intro-line">
+        <span class="intro-prefix">My name is </span
+        ><span class="intro-signature"
+          ><span class="intro-name-slot"><span class="intro-name">Shion</span></span
+          ><span class="intro-punctuation">!!</span></span
+        >
+      </p>
+      <p class="intro-tagline text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
     </div>
   </div>
 </template>
@@ -105,126 +100,128 @@ onBeforeUnmount(finish);
   display: none;
 }
 
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  header:has(+ .greeting-intro.is-playing),
+@media (prefers-reduced-motion: no-preference) {
+  header:has(+ [data-playing]),
   .greeting-intro {
-    --duration: 1800ms;
+    --duration: 2200ms;
   }
 
-  header:has(+ .greeting-intro.is-playing) {
+  header:has(+ [data-playing]) {
     animation: reveal-heading var(--duration) ease-out both;
   }
 
-  :root:not(:has(:target)) .greeting-intro {
+  .greeting-intro[data-playing] {
     position: fixed;
-    inset: 0;
     z-index: 10;
+    inset: 0;
     display: grid;
     place-items: center;
-    /* Reveal the page even if hydration or font loading stalls. */
-    animation: expire 0s 2.4s forwards;
-  }
-
-  :root:not(:has(:target)) .greeting-intro.is-playing {
-    animation: none;
+    animation: finish-intro var(--duration) step-end forwards;
   }
 
   .greeting-intro::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 45%, #10252b, #080e19 64%, #070c15);
+    background: linear-gradient(135deg, #0d1424, #05070c 58%, #0b1220);
+    animation: reveal-page var(--duration) ease-in-out both;
   }
 
-  .intro-disc {
+  .intro-card {
     position: relative;
     isolation: isolate;
-    display: grid;
-    place-content: center;
-    justify-items: center;
-    width: min(21rem, 72vmin);
-    aspect-ratio: 1;
-    font-family: "Playwrite GB J", cursive;
-    line-height: 1.42;
+    width: min(38rem, calc(100% - 2rem));
+    padding: clamp(1.5rem, 5vw, 3rem);
+    color: #f1f5f9;
   }
 
-  .intro-disc::before {
+  .intro-card::before {
     content: "";
     position: absolute;
     z-index: -1;
     inset: 0;
-    border: 1px solid rgb(94 234 212 / 50%);
-    border-radius: 50%;
-    background: radial-gradient(ellipse at 28% 18%, #193a3e, #0d1a26 70%);
-    box-shadow:
-      inset 0 1px 1px rgb(214 255 241 / 16%),
-      0 1.5rem 5rem rgb(0 0 0 / 26%);
+    border: 1px solid rgb(255 255 255 / 11%);
+    border-radius: 1.5rem;
+    background: linear-gradient(115deg, #151a26, #121317 75%, #101415);
+    box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 22%);
+  }
+
+  .intro-hello,
+  .intro-line {
+    font-family: "Playwrite GB J", cursive;
+    line-height: 1.5;
   }
 
   .intro-hello {
-    color: #d8e3ef;
-    font-size: clamp(1rem, 3.6vmin, 1.4rem);
+    font-size: clamp(2.25rem, 6.8vw, 3rem);
+    letter-spacing: -0.025em;
+  }
+
+  .intro-line {
+    margin-block: 0.2rem 0.45rem;
+    font-size: clamp(1.35rem, 5.4vw, 2.25rem);
+  }
+
+  .intro-signature {
+    white-space: nowrap;
+  }
+
+  .intro-name-slot,
+  .intro-name {
+    display: inline-block;
   }
 
   .intro-name {
-    margin-top: 0.3rem;
-    font-size: clamp(2.6rem, 9.8vmin, 4.4rem);
-    letter-spacing: -0.055em;
-    background: linear-gradient(90deg, #34d399, #2dd4bf);
-    background-clip: text;
     color: transparent;
-  }
-
-  .is-playing .intro-disc {
+    background: linear-gradient(90deg, #34d399, #22d3ee);
+    background-clip: text;
+    transform-origin: left center;
     animation: settle var(--duration) cubic-bezier(0.35, 0, 0.18, 1) both;
   }
 
-  .is-playing::before {
-    animation: reveal-page var(--duration) ease-in-out both;
+  .intro-punctuation {
+    color: #22d3ee;
   }
 
-  .is-playing .intro-disc::before,
-  .is-playing .intro-hello {
+  .intro-card::before,
+  .intro-hello,
+  .intro-prefix,
+  .intro-punctuation,
+  .intro-tagline {
     animation: dissolve var(--duration) ease-in-out both;
-  }
-
-  .is-playing .intro-name {
-    animation: handoff var(--duration) ease-out both;
   }
 }
 
 @keyframes settle {
   0%,
-  44% {
+  50% {
     transform: none;
+    opacity: 1;
   }
-  94%,
+  93%,
   100% {
     transform: translate(var(--travel-x), var(--travel-y)) scale(var(--name-scale));
   }
-}
-@keyframes dissolve {
-  0%,
-  44% {
+  93% {
     opacity: 1;
   }
-  76%,
   100% {
     opacity: 0;
   }
 }
-@keyframes handoff {
+@keyframes dissolve {
   0%,
-  92% {
+  50% {
     opacity: 1;
   }
+  75%,
   100% {
     opacity: 0;
   }
 }
 @keyframes reveal-page {
   0%,
-  58% {
+  57% {
     opacity: 1;
   }
   94%,
@@ -234,15 +231,15 @@ onBeforeUnmount(finish);
 }
 @keyframes reveal-heading {
   0%,
-  88% {
+  89% {
     opacity: 0;
   }
-  98%,
+  99%,
   100% {
     opacity: 1;
   }
 }
-@keyframes expire {
+@keyframes finish-intro {
   to {
     visibility: hidden;
   }
