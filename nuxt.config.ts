@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   modules: ["@nuxtjs/google-fonts", "@nuxtjs/tailwindcss", "@nuxt/eslint"],
+  eslint: { config: { typescript: true } },
   googleFonts: {
     families: {
       "Playwrite+GB+J": [100, 400],

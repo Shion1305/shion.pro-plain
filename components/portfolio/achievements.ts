@@ -1,0 +1,221 @@
+export interface Achievement {
+  event: string;
+  category: string;
+  year: number;
+  date: string;
+  team: string;
+  result: string;
+  source: string;
+  headline?: string;
+  awardDetail?: string;
+}
+
+const crisis: Achievement = {
+  event: "21st Information Crisis Management Contest",
+  category: "Incident response",
+  year: 2026,
+  date: "May 21–23",
+  team: "HamaGlitch",
+  result: "2nd of 25 · MEXT Minister’s Award and Mizuho Financial Group Award",
+  headline: "MEXT Minister’s Award",
+  awardDetail: "Mizuho Financial Group Award · 2nd of 25",
+  source: "https://sccs-jp.org/symposium30/cmc21/final/",
+};
+const seccon: Achievement = {
+  event: "SECCON Beginners 2025",
+  category: "CTF",
+  year: 2025,
+  date: "Jul 26–27",
+  team: "sayonara",
+  result: "2nd of 880 teams",
+  source: "https://x.com/shion1305/status/1949096393442025577",
+};
+const devsecops: Achievement = {
+  event: "DevSecOpsThon 2024 at GMO kitaQ",
+  category: "Hackathon",
+  year: 2024,
+  date: "Apr 27–29",
+  team: "Team A",
+  result: "1st of 5 teams · Grand prize",
+  source: "https://developers.gmo.jp/events/44884/",
+};
+
+export const featuredAchievements = [crisis, seccon];
+
+export const achievements: Achievement[] = [
+  crisis,
+  {
+    event: "TSG CTF 2025",
+    category: "CTF",
+    year: 2025,
+    date: "Dec 20–21",
+    team: "Hamakko",
+    result: "37th of 488 teams",
+    source: "https://ctftime.org/event/2867",
+  },
+  {
+    event: "GMO Flatt Security mini CTF #7",
+    category: "CTF",
+    year: 2025,
+    date: "Aug 19",
+    team: "Shion1305 · Individual",
+    result: "9th of 62",
+    source: "https://x.com/shion1305/status/1957791172199608349/photo/1",
+  },
+  seccon,
+  {
+    event: "Engineer Guild Hackathon #2",
+    category: "Hackathon",
+    year: 2025,
+    date: "Feb 22 – Mar 8",
+    team: "a-company",
+    result: "4th of at least 48 teams · HRBrain sponsor award",
+    source: "https://www.linkedin.com/feed/update/urn:li:activity:7304492584666550272/",
+  },
+  {
+    event: "Ministry of Defense Cyber Contest",
+    category: "CTF",
+    year: 2025,
+    date: "Feb 2",
+    team: "NagiShion",
+    result: "17th of 107 student entries · 61st of 988 overall",
+    source: "https://drive.google.com/file/d/10DDJOC3gA5ZRt1KKyNc1kOwXGECQocUc/view?usp=sharing",
+  },
+  {
+    event: "TSG CTF 2024",
+    category: "CTF",
+    year: 2024,
+    date: "Dec 14–15",
+    team: "sayonara",
+    result: "47th of 305 teams",
+    source: "https://ctftime.org/event/2424",
+  },
+  {
+    event: "ISUCON 14",
+    category: "Performance tuning",
+    year: 2024,
+    date: "Dec 8",
+    team: "a-company",
+    result: "30th of 99 student teams · 282nd of 831 overall",
+    source: "https://isucon.net/archives/58818382.html",
+  },
+  {
+    event: "TMC Tokyo Meetup × ZANSIN",
+    category: "Hardening",
+    year: 2024,
+    date: "Dec 7",
+    team: "ポメラニ",
+    result: "1st in technical scoring · 3rd of 10 overall",
+    source: "https://luma.com/tmc-tokyo-zansin-2024-12",
+  },
+  {
+    event: "Engineer Guild Hackathon #1",
+    category: "Hackathon",
+    year: 2024,
+    date: "Nov 2–16",
+    team: "いただきます · a-company",
+    result: "4th of 17 teams · M3 Award",
+    source: "https://gaishishukatsu.com/archives/057edcf35209458483e8e62a9484988e",
+  },
+  {
+    event: "Toyota HackFesta 2024 · Japan qualifier",
+    category: "CTF",
+    year: 2024,
+    date: "Oct 5–6",
+    team: "Team 418",
+    result: "1st place",
+    source:
+      "https://docs.google.com/presentation/d/179bTOynFIBA3kEZZob5SwfefscbeqM2SeLkGPVIMsxg/edit",
+  },
+  {
+    event: "Progate Hackathon Vol. 2",
+    category: "Hackathon",
+    year: 2024,
+    date: "Aug 31 – Sep 1",
+    team: "とり",
+    result: "M3 sponsor award · 8 teams competed",
+    source: "https://note.com/progate/n/ncccf5f861133",
+  },
+  {
+    event: "MIXI git challenge #14",
+    category: "CTF",
+    year: 2024,
+    date: "Aug 24",
+    team: "Hotel",
+    result: "2nd place",
+    source: "https://x.com/shion1305/status/1827336008498835613",
+  },
+  {
+    event: "UIUCTF 2024",
+    category: "CTF",
+    year: 2024,
+    date: "Jun 29 – Jul 1",
+    team: "sayonara",
+    result: "119th of 959 teams",
+    source: "https://2024.uiuc.tf/scoreboard",
+  },
+  {
+    event: "WaniCTF 2024",
+    category: "CTF",
+    year: 2024,
+    date: "Jun 21–23",
+    team: "sayonara",
+    result: "31st of 1,022 teams",
+    source: "https://wanictf.org/2024/cert/142/index.html",
+  },
+  {
+    event: "SECCON Beginners 2024",
+    category: "CTF",
+    year: 2024,
+    date: "Jun 15–16",
+    team: "sayonara",
+    result: "14th of 962 teams",
+    source: "https://x.com/shion1305/status/1802538327398338889",
+  },
+  {
+    event: "DIVER OSINT CTF 2024",
+    category: "CTF",
+    year: 2024,
+    date: "Jun 8–9",
+    team: "sayonara",
+    result: "20th of 453 teams",
+    source: "https://ctftime.org/event/2365/",
+  },
+  devsecops,
+  {
+    event: "Track Job Hackathon",
+    category: "Hackathon",
+    year: 2024,
+    date: "Apr 13–28",
+    team: "a-company",
+    result: "5th of 20 teams · Excellence Award",
+    source: "https://job.tracks.run/new-grad/hackathon-20240413",
+  },
+  {
+    event: "Japan Connect Hackathon 2024",
+    category: "Hackathon",
+    year: 2024,
+    date: "Mar 23–24",
+    team: "mixi event friends",
+    result: "1st of 4 teams · Grand prize",
+    source: "https://x.com/connect_hack/status/1771808771624587464",
+  },
+  {
+    event: "BraekerCTF 2024",
+    category: "CTF",
+    year: 2024,
+    date: "Feb 23–25",
+    team: "sayonara",
+    result: "105th of 508 teams",
+    source: "https://ctftime.org/event/2181/",
+  },
+  {
+    event: "TsukuCTF 2023",
+    category: "CTF",
+    year: 2023,
+    date: "Dec 9–10",
+    team: "Lumos",
+    result: "5th of 343 teams",
+    source: "https://zenn.dev/lumos/articles/72b1cc980b8207",
+  },
+];

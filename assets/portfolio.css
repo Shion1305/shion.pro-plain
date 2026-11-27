@@ -1,0 +1,291 @@
+.portfolio {
+  --accent: #5eead4;
+  --muted: #aab7ca;
+  --line: rgb(255 255 255 / 14%);
+  --nav-height: 3.3rem;
+  --page-edge: max(clamp(1.25rem, 5vw, 4.5rem), calc((100% - 72rem) / 2));
+  color-scheme: dark;
+  font:
+    400 1rem/1.5 "Titillium Web",
+    sans-serif;
+}
+.portfolio > :is(section, nav) {
+  padding-inline: var(--page-edge);
+}
+.portfolio section[id],
+#achievements,
+.inline-disclosure :is(summary, .additional-entries) {
+  scroll-margin-top: var(--nav-height);
+}
+.portfolio :is(a, summary, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.portfolio :is(.profile-name, .greeting, h2) {
+  font-family: "Playwrite GB J", cursive;
+  font-weight: 400;
+}
+.portfolio h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.65;
+}
+.portfolio h3 {
+  color: #f1f5f9;
+  font-weight: 600;
+  font-size: 1.16rem;
+  line-height: 1.32;
+}
+.portfolio h3 a {
+  text-decoration: underline;
+  text-decoration-color: rgb(148 163 184 / 50%);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+.portfolio h3 a:hover {
+  color: var(--accent);
+}
+.portfolio :is(.entry-meta, small) {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+#profile {
+  padding-block: clamp(2.25rem, 6vw, 5.5rem) clamp(2rem, 4.5vw, 4rem);
+  background: radial-gradient(ellipse at 14% 2%, rgb(20 184 166 / 10%), transparent 63%);
+}
+.greeting {
+  color: #d8e3ef;
+  font-size: 1.2rem;
+  letter-spacing: -0.025em;
+}
+.profile-name {
+  margin-block: 0.58rem 0.8rem;
+  font-size: clamp(2.2rem, 4.4vw, 4rem);
+  line-height: 1.42;
+}
+.profile-name [lang="ja"] {
+  color: #dbe6f2;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+}
+.profile-bio {
+  max-width: 45ch;
+}
+.profile-bio > p {
+  font-size: clamp(1.04rem, 1.35vw, 1.2rem);
+}
+.profile-links {
+  margin-top: 1.1rem;
+}
+.section-navigation {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-block: 1px solid var(--line);
+  background: rgb(9 17 28 / 94%);
+  backdrop-filter: blur(18px);
+}
+.section-navigation a {
+  align-content: center;
+  align-items: center;
+  min-height: var(--nav-height);
+  padding-inline: 0.12rem;
+  color: #cbd5e1;
+  font-size: 0.98rem;
+}
+.section-navigation a:hover {
+  color: #fff;
+}
+.section-navigation a[aria-current="location"] {
+  color: #6ee7b7;
+  box-shadow: inset 0 -2px var(--accent);
+}
+#overview {
+  display: grid;
+  align-items: start;
+  grid-template-columns: minmax(0, 1.14fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+.experience-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  margin-bottom: 1rem;
+}
+.experience-heading h2 {
+  margin: 0;
+}
+.role-count {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.role-timeline li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.45rem 3.65rem minmax(0, 1fr);
+  column-gap: clamp(0.6rem, 1vw, 0.9rem);
+  align-items: start;
+}
+.role-timeline li:not(:last-child),
+#experience:has(details[open]) > .role-timeline > li:last-child {
+  padding-bottom: 1.05rem;
+}
+.role-timeline li:not(:last-child)::before,
+#experience:has(details[open]) > .role-timeline > li:last-child::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.77rem;
+  bottom: -0.77rem;
+  width: 1px;
+  background: var(--line);
+}
+.role-timeline li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #6f9394;
+}
+.tenure {
+  white-space: nowrap;
+}
+.company-logo {
+  grid-column: 2;
+  display: grid;
+  place-items: center;
+  height: 2.65rem;
+}
+.company-logo img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 2.55rem;
+  border-radius: 2px;
+  object-fit: contain;
+}
+.company-logo[data-surface="light"] img {
+  padding: 0.15rem;
+  background: white;
+}
+.company-logo[data-surface="monochrome"] img {
+  max-height: 1.92rem;
+  filter: invert(1);
+}
+.role-timeline p,
+.award p,
+.result-list p {
+  color: #cbd5e1;
+}
+.award {
+  border-top: 1px solid var(--line);
+  padding: 1.22rem 0;
+}
+.award h3 {
+  margin-block: 0.35rem;
+  font-size: clamp(1.38rem, 2vw, 1.85rem);
+}
+.award .category {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.award .entry-meta {
+  margin-top: 0.24rem;
+}
+#results {
+  border-top: 1px solid var(--line);
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+}
+.result-list {
+  max-width: 48rem;
+}
+.result-list li + li {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+.result-list h3 {
+  margin: 0.13rem 0;
+}
+.inline-disclosure {
+  display: flex;
+  flex-direction: column;
+}
+.inline-disclosure summary {
+  order: 1;
+}
+.inline-disclosure.enhanced[open] > summary {
+  display: none;
+}
+.inline-disclosure :is(summary, .collapse-entries) {
+  overflow-anchor: none;
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+.portfolio summary::-webkit-details-marker {
+  display: none;
+}
+.portfolio summary::before {
+  content: "+";
+  font: 400 1.2rem/1 sans-serif;
+}
+.portfolio details[open] > summary::before,
+.collapse-entries::before {
+  content: "−";
+  font: 400 1.2rem/1 sans-serif;
+}
+.portfolio .open-label,
+.portfolio details[open] > summary .closed-label {
+  display: none;
+}
+.portfolio details[open] > summary .open-label {
+  display: inline;
+}
+.portfolio summary:hover span,
+.collapse-entries:hover {
+  text-decoration: underline;
+}
+#results .additional-entries .result-list {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 767px) {
+  .profile-name {
+    font-size: clamp(1.85rem, 7.6vw, 2.9rem);
+  }
+  .section-navigation {
+    justify-content: space-between;
+    gap: 0.1rem;
+  }
+  #overview {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+  #achievements {
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+}
