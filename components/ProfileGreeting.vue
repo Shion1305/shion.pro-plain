@@ -11,6 +11,7 @@ onPrehydrate(() => {
   if (!stage || !header || !card || !openingHello || !openingName || !hello || !name) return;
 
   const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+  const fullIntroRequested = new URLSearchParams(location.search).get("intro") === "full";
   const centerY = (box: DOMRect) => box.top + box.height / 2;
   const fontSize = (element: HTMLElement) => parseFloat(getComputedStyle(element).fontSize);
   const align = () => {
@@ -46,8 +47,9 @@ onPrehydrate(() => {
       listeners.abort();
     };
     const start = () => {
-      stage.dataset.playing = "";
-      if (motion.matches) {
+      const fullMotion = motion.matches || fullIntroRequested;
+      stage.dataset.playing = fullMotion ? "full" : "reduced";
+      if (fullMotion) {
         align();
         for (const element of [card, openingName, header, hello]) observer.observe(element);
         // The browser can restore a scroll position or follow a fragment after the intro starts.
@@ -67,7 +69,7 @@ onPrehydrate(() => {
     for (const event of ["pointerdown", "keydown", "wheel", "hashchange", "pagehide"]) {
       window.addEventListener(event, finish, options);
     }
-    motion.addEventListener("change", finish, options);
+    if (!fullIntroRequested) motion.addEventListener("change", finish, options);
     document.addEventListener(
       "visibilitychange",
       () => {
@@ -104,6 +106,7 @@ onPrehydrate(() => {
       </h1>
       <p class="profile-tagline text-lg text-slate-300">DevSecOps❤️ from 🇯🇵</p>
     </div>
+    <a class="play-intro" href="?intro=full">Play full animation</a>
   </header>
   <div class="greeting-intro" aria-hidden="true">
     <!-- Measure the opening layout here and show this card directly for reduced motion. -->
@@ -141,6 +144,7 @@ onPrehydrate(() => {
 .surname {
   background-image: linear-gradient(100deg, #2dd4bf, #22d3ee);
 }
+.play-intro,
 .greeting-intro,
 .opening-prefix,
 .opening-punctuation {
@@ -171,84 +175,94 @@ onPrehydrate(() => {
   font-size: clamp(1.35rem, 5.4vw, 2.25rem);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .greeting-intro[data-playing] {
-    animation: reduced-intro 150ms ease-out 800ms both;
+.greeting-intro[data-playing="reduced"] {
+  animation: reduced-intro 150ms ease-out 800ms both;
+}
+.greeting-intro[data-playing="reduced"] .intro-card {
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 1.5rem;
+  background: linear-gradient(112deg, #171d2a, #131519 70%, #101816);
+  color: #f1f5f9;
+}
+.greeting-intro[data-playing="reduced"] .intro-name {
+  color: #34d399;
+}
+
+.greeting-intro[data-playing="full"] .intro-card {
+  visibility: hidden;
+}
+
+.profile-greeting:has(+ [data-playing="full"]) {
+  position: relative;
+  z-index: 11;
+  pointer-events: none;
+
+  .greeting-content {
+    isolation: isolate;
+    animation: settle-card var(--duration) var(--glide) both;
   }
-  .intro-card {
-    border: 1px solid rgb(255 255 255 / 12%);
+  .greeting-content::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border: 1px solid transparent;
     border-radius: 1.5rem;
-    background: linear-gradient(112deg, #171d2a, #131519 70%, #101816);
-    color: #f1f5f9;
+    background:
+      linear-gradient(112deg, #171d2a, #131519 70%, #101816) padding-box,
+      linear-gradient(128deg, #47525e, #262932 52%, #23423e) border-box;
+    box-shadow: 0 1.25rem 3.5rem rgb(0 0 0 / 26%);
+    animation:
+      shape-frame var(--duration) var(--glide) both,
+      fade-frame var(--duration) ease-in-out both;
   }
-  .intro-name {
-    color: #34d399;
+  .hello-word,
+  .first-name {
+    transform-origin: left center;
+  }
+  .hello-word {
+    animation: settle-hello var(--duration) var(--glide) both;
+  }
+  .first-name {
+    animation: settle-name var(--duration) var(--glide) both;
+  }
+  .opening-prefix,
+  .opening-punctuation {
+    position: absolute;
+    display: block;
+    top: 0;
+    white-space: pre;
+    color: #f1f5f9;
+    animation: dissolve var(--duration) ease-in-out both;
+  }
+  .opening-prefix {
+    right: 100%;
+  }
+  .opening-punctuation {
+    left: 100%;
+    color: #22d3ee;
+  }
+  .surname {
+    animation: reveal-surname var(--duration) ease-out both;
+  }
+  [lang="ja"] {
+    animation: reveal-detail var(--duration) ease-out both;
+  }
+  .profile-tagline {
+    animation: reveal-tagline var(--duration) ease-out both;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .intro-card {
-    visibility: hidden;
+@media (prefers-reduced-motion: reduce) and (scripting: enabled) {
+  .play-intro {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
-
-  .profile-greeting:has(+ [data-playing]) {
-    position: relative;
-    z-index: 11;
-    pointer-events: none;
-
-    .greeting-content {
-      isolation: isolate;
-      animation: settle-card var(--duration) var(--glide) both;
-    }
-    .greeting-content::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      border: 1px solid transparent;
-      border-radius: 1.5rem;
-      background:
-        linear-gradient(112deg, #171d2a, #131519 70%, #101816) padding-box,
-        linear-gradient(128deg, #47525e, #262932 52%, #23423e) border-box;
-      box-shadow: 0 1.25rem 3.5rem rgb(0 0 0 / 26%);
-      animation:
-        shape-frame var(--duration) var(--glide) both,
-        fade-frame var(--duration) ease-in-out both;
-    }
-    .hello-word,
-    .first-name {
-      transform-origin: left center;
-    }
-    .hello-word {
-      animation: settle-hello var(--duration) var(--glide) both;
-    }
-    .first-name {
-      animation: settle-name var(--duration) var(--glide) both;
-    }
-    .opening-prefix,
-    .opening-punctuation {
-      position: absolute;
-      display: block;
-      top: 0;
-      white-space: pre;
-      color: #f1f5f9;
-      animation: dissolve var(--duration) ease-in-out both;
-    }
-    .opening-prefix {
-      right: 100%;
-    }
-    .opening-punctuation {
-      left: 100%;
-      color: #22d3ee;
-    }
-    .surname {
-      animation: reveal-surname var(--duration) ease-out both;
-    }
-    [lang="ja"] {
-      animation: reveal-detail var(--duration) ease-out both;
-    }
-    .profile-tagline {
-      animation: reveal-tagline var(--duration) ease-out both;
-    }
+  .profile-greeting:has(+ [data-playing]) .play-intro {
+    visibility: hidden;
   }
 }
 
