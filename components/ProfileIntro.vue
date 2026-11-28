@@ -20,8 +20,8 @@
         </div>
       </div>
       <p class="text-lg leading-relaxed text-slate-300 sm:text-xl">
-        I’m interested in how developers, security teams, and operators work together. I like
-        finding ways to make secure choices easier, from code review to production.
+        I focus on the tools and practices that help developers, security engineers, and operators
+        deliver software securely, from code review through production.
       </p>
     </div>
   </div>
